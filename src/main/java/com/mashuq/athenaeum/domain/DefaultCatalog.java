@@ -4,6 +4,8 @@
 package com.mashuq.athenaeum.domain;
 
 
+import com.mashuq.athenaeum.domain.athenaeum.Athenaeum;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +29,7 @@ import org.jooq.impl.CatalogImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultCatalog extends CatalogImpl {
 
-    private static final long serialVersionUID = 2125604230;
+    private static final long serialVersionUID = 452790533;
 
     /**
      * The reference instance of <code></code>
@@ -35,9 +37,9 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>PUBLIC</code>.
+     * The schema <code>ATHENAEUM</code>.
      */
-    public final Public PUBLIC = com.mashuq.athenaeum.domain.Public.PUBLIC;
+    public final Athenaeum ATHENAEUM = com.mashuq.athenaeum.domain.athenaeum.Athenaeum.ATHENAEUM;
 
     /**
      * No further instances allowed
@@ -55,6 +57,6 @@ public class DefaultCatalog extends CatalogImpl {
 
     private final List<Schema> getSchemas0() {
         return Arrays.<Schema>asList(
-            Public.PUBLIC);
+            Athenaeum.ATHENAEUM);
     }
 }
