@@ -6,3 +6,11 @@ CREATE TABLE ATHENAEUM.Book (
   ISBN13 VARCHAR(512) NULL,
   indexed TINYINT(1),
   PRIMARY KEY (BookID));
+  
+  
+CREATE TABLE ATHENAEUM.BookInformationRequest (
+  BookRequestID INT NOT NULL AUTO_INCREMENT,
+  BookID INT NOT NULL, 
+  RequestStatus INT NOT NULL,
+  RequesterEmail VARCHAR(128) NULL, 
+  FOREIGN KEY (BookID) REFERENCES Book(BookID));  

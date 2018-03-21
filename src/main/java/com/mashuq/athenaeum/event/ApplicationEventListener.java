@@ -4,23 +4,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StoredField;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.IndexWriter;
 import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
+import com.mashuq.athenaeum.constant.BookFields;
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
 import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookRecord;
+import com.mashuq.athenaeum.info.InformationSource;
+import com.mashuq.athenaeum.util.IndexUtil;
 
 @Component
 public class ApplicationEventListener {
@@ -32,7 +43,7 @@ public class ApplicationEventListener {
 
 	@Value("${openlibrary.file}")
 	private String filePath;
-	
+
 	@EventListener
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		initializeAllBooks();
@@ -70,7 +81,7 @@ public class ApplicationEventListener {
 				if (count % 10000 == 0) {
 					dsl.batchStore(bookRecords).execute();
 					bookRecords.clear();
-					LOGGER.info("Records inserted " + count);
+					LOGGER.info("Records inserted & indexed " + count);
 				}
 			}
 			if (!bookRecords.isEmpty())
@@ -99,7 +110,5 @@ public class ApplicationEventListener {
 
 		return bookRecord;
 	}
-
-
 
 }

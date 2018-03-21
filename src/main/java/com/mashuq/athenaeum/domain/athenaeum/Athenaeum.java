@@ -6,6 +6,7 @@ package com.mashuq.athenaeum.domain.athenaeum;
 
 import com.mashuq.athenaeum.domain.DefaultCatalog;
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Athenaeum extends SchemaImpl {
 
-    private static final long serialVersionUID = 302305471;
+    private static final long serialVersionUID = 751764524;
 
     /**
      * The reference instance of <code>ATHENAEUM</code>
@@ -42,6 +43,11 @@ public class Athenaeum extends SchemaImpl {
      * The table <code>ATHENAEUM.BOOK</code>.
      */
     public final Book BOOK = com.mashuq.athenaeum.domain.athenaeum.tables.Book.BOOK;
+
+    /**
+     * The table <code>ATHENAEUM.BOOKINFORMATIONREQUEST</code>.
+     */
+    public final Bookinformationrequest BOOKINFORMATIONREQUEST = com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest.BOOKINFORMATIONREQUEST;
 
     /**
      * No further instances allowed
@@ -68,6 +74,7 @@ public class Athenaeum extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Book.BOOK);
+            Book.BOOK,
+            Bookinformationrequest.BOOKINFORMATIONREQUEST);
     }
 }

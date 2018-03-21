@@ -28,11 +28,11 @@ public class Indexer {
 
 	@Autowired
 	private DSLContext dsl;
-	
+
 	@Autowired
 	private ApplicationContext ctx;
 
-	@Scheduled(fixedDelay = 60000, initialDelay = 0)
+	@Scheduled(fixedDelay = 6000, initialDelay = 6000)
 	public void indexBookTitles() throws IOException {
 		LOGGER.info("Indexing books ...");
 		Result<BookRecord> unindexedBooks = dsl.selectFrom(Book.BOOK).where(Book.BOOK.INDEXED.eq((byte) 0)).limit(1000).fetch();
@@ -41,7 +41,7 @@ public class Indexer {
 			return;
 		}
 		IndexWriter indexWriter = ctx.getBean(IndexWriter.class);
-		
+
 		Iterator<BookRecord> it = unindexedBooks.iterator();
 		while (it.hasNext()) {
 			BookRecord bookRecord = it.next();
@@ -55,7 +55,7 @@ public class Indexer {
 		LOGGER.info("Indexed " + unindexedBooks.size() + " books");
 	}
 
-	private void indexBookRecord(BookRecord bookRecord, IndexWriter indexWriter) throws IOException {
+	public void indexBookRecord(BookRecord bookRecord, IndexWriter indexWriter) throws IOException {
 		if (null == bookRecord)
 			return;
 		Document document = new Document();
@@ -70,4 +70,5 @@ public class Indexer {
 		document.add(new StoredField(BookFields.BOOKID.toString(), bookRecord.getBookid()));
 		indexWriter.addDocument(document);
 	}
+
 }

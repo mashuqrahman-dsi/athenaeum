@@ -5,10 +5,13 @@ package com.mashuq.athenaeum.domain.athenaeum;
 
 
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest;
 import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookRecord;
+import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookinformationrequestRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
@@ -33,6 +36,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<BookRecord, Integer> IDENTITY_BOOK = Identities0.IDENTITY_BOOK;
+    public static final Identity<BookinformationrequestRecord, Integer> IDENTITY_BOOKINFORMATIONREQUEST = Identities0.IDENTITY_BOOKINFORMATIONREQUEST;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -44,6 +48,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<BookinformationrequestRecord, BookRecord> CONSTRAINT_B = ForeignKeys0.CONSTRAINT_B;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -51,9 +56,14 @@ public class Keys {
 
     private static class Identities0 {
         public static Identity<BookRecord, Integer> IDENTITY_BOOK = Internal.createIdentity(Book.BOOK, Book.BOOK.BOOKID);
+        public static Identity<BookinformationrequestRecord, Integer> IDENTITY_BOOKINFORMATIONREQUEST = Internal.createIdentity(Bookinformationrequest.BOOKINFORMATIONREQUEST, Bookinformationrequest.BOOKINFORMATIONREQUEST.BOOKREQUESTID);
     }
 
     private static class UniqueKeys0 {
         public static final UniqueKey<BookRecord> CONSTRAINT_1 = Internal.createUniqueKey(Book.BOOK, "CONSTRAINT_1", Book.BOOK.BOOKID);
+    }
+
+    private static class ForeignKeys0 {
+        public static final ForeignKey<BookinformationrequestRecord, BookRecord> CONSTRAINT_B = Internal.createForeignKey(com.mashuq.athenaeum.domain.athenaeum.Keys.CONSTRAINT_1, Bookinformationrequest.BOOKINFORMATIONREQUEST, "CONSTRAINT_B", Bookinformationrequest.BOOKINFORMATIONREQUEST.BOOKID);
     }
 }

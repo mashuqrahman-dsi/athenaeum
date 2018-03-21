@@ -5,6 +5,7 @@ package com.mashuq.athenaeum.domain.athenaeum;
 
 
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest;
 
 import javax.annotation.Generated;
 
@@ -26,4 +27,9 @@ public class Tables {
      * The table <code>ATHENAEUM.BOOK</code>.
      */
     public static final Book BOOK = com.mashuq.athenaeum.domain.athenaeum.tables.Book.BOOK;
+
+    /**
+     * The table <code>ATHENAEUM.BOOKINFORMATIONREQUEST</code>.
+     */
+    public static final Bookinformationrequest BOOKINFORMATIONREQUEST = com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest.BOOKINFORMATIONREQUEST;
 }
