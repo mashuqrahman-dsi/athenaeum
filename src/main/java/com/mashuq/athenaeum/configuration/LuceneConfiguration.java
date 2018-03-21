@@ -10,7 +10,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.NIOFSDirectory;
+import org.apache.lucene.store.FSDirectory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class LuceneConfiguration {
 
 	@Bean
 	public Directory getIndex() throws IOException, URISyntaxException {
-		return new NIOFSDirectory(Paths.get(new URI(indexPath)));
+		return FSDirectory.open(Paths.get(new URI(indexPath)));
 	}
 
 	@Bean
@@ -33,8 +33,11 @@ public class LuceneConfiguration {
 	}
 	
 	@Bean
+	@Scope("prototype")
 	public IndexWriterConfig getWriterConfiguration() {
-		return new IndexWriterConfig(getAnalyzer());
+		IndexWriterConfig indexWriterConfig = new IndexWriterConfig(getAnalyzer());
+		indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+		return indexWriterConfig;
 	}
 	
 	@Bean
