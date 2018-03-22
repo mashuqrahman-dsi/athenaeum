@@ -8,18 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mashuq.athenaeum.exception.AtheneumException;
 import com.mashuq.athenaeum.service.BookService;
 
 @RestController
-public class BookRestService {
+public class BookAPI {
 
 	@Autowired
 	private BookService bookService;
 
-	@RequestMapping("/search/title/{searchTitle}")
+	@RequestMapping(value = "/search/title/{searchTitle}", method = RequestMethod.GET)
 	ResponseEntity<List<Map>> searchByTitle(
 			@PathVariable("searchTitle") String searchTitle) {
 		try {
@@ -30,7 +31,7 @@ public class BookRestService {
 		}
 	}
 
-	@RequestMapping("/search/isbn/{isbn}")
+	@RequestMapping(value = "/search/isbn/{isbn}", method = RequestMethod.GET)
 	ResponseEntity<List<Map>> searchByISBN(@PathVariable("isbn") String isbn) {
 		try {
 			List<Map> result = bookService.searchBooksByISBN(isbn);
@@ -40,7 +41,7 @@ public class BookRestService {
 		}
 	}
 
-	@RequestMapping("/bookinformation/{bookID}")
+	@RequestMapping(value = "/bookinformation/{bookID}", method = RequestMethod.GET)
 	ResponseEntity<Map> getBookInformation(
 			@PathVariable("bookID") Integer bookID) {
 		try {
