@@ -32,7 +32,7 @@ public class Indexer {
 	@Autowired
 	private ApplicationContext ctx;
 
-	//@Scheduled(fixedDelay = 1, initialDelay = 6000)
+	@Scheduled(fixedDelay = 1, initialDelay = 6000)
 	public void indexBookTitles() throws IOException {
 		LOGGER.info("Indexing books ...");
 		Result<BookRecord> unindexedBooks = dsl.selectFrom(Book.BOOK).where(Book.BOOK.INDEXED.eq((byte) 0)).limit(1000)
