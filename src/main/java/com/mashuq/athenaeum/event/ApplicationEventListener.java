@@ -30,8 +30,8 @@ import com.google.gson.Gson;
 import com.mashuq.athenaeum.constant.BookFields;
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
 import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookRecord;
-import com.mashuq.athenaeum.info.InformationSource;
-import com.mashuq.athenaeum.util.IndexUtil;
+import com.mashuq.athenaeum.reference.Reference;
+import com.mashuq.athenaeum.util.LuceneUtil;
 
 @Component
 public class ApplicationEventListener {
@@ -81,7 +81,7 @@ public class ApplicationEventListener {
 				if (count % 10000 == 0) {
 					dsl.batchStore(bookRecords).execute();
 					bookRecords.clear();
-					LOGGER.info("Records inserted & indexed " + count);
+					LOGGER.info("Records inserted " + count);
 				}
 			}
 			if (!bookRecords.isEmpty())
@@ -107,7 +107,7 @@ public class ApplicationEventListener {
 		bookRecord.setSubtitle((String) map.get("subtitle"));
 		bookRecord.setIsbn10(null != map.get("isbn_10") && !((List) map.get("isbn_10")).isEmpty() ? (String) ((List) map.get("isbn_10")).get(0) : null);
 		bookRecord.setIsbn13(null != map.get("isbn_13") && !((List) map.get("isbn_13")).isEmpty() ? (String) ((List) map.get("isbn_13")).get(0) : null);
-
+		bookRecord.setIndexed((byte)0);
 		return bookRecord;
 	}
 

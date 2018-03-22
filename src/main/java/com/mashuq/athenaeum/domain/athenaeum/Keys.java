@@ -5,9 +5,11 @@ package com.mashuq.athenaeum.domain.athenaeum;
 
 
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
-import com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Information;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Request;
 import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookRecord;
-import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookinformationrequestRecord;
+import com.mashuq.athenaeum.domain.athenaeum.tables.records.InformationRecord;
+import com.mashuq.athenaeum.domain.athenaeum.tables.records.RequestRecord;
 
 import javax.annotation.Generated;
 
@@ -36,19 +38,23 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<BookRecord, Integer> IDENTITY_BOOK = Identities0.IDENTITY_BOOK;
-    public static final Identity<BookinformationrequestRecord, Integer> IDENTITY_BOOKINFORMATIONREQUEST = Identities0.IDENTITY_BOOKINFORMATIONREQUEST;
+    public static final Identity<InformationRecord, Integer> IDENTITY_INFORMATION = Identities0.IDENTITY_INFORMATION;
+    public static final Identity<RequestRecord, Integer> IDENTITY_REQUEST = Identities0.IDENTITY_REQUEST;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<BookRecord> CONSTRAINT_1 = UniqueKeys0.CONSTRAINT_1;
+    public static final UniqueKey<InformationRecord> CONSTRAINT_F5 = UniqueKeys0.CONSTRAINT_F5;
+    public static final UniqueKey<RequestRecord> CONSTRAINT_6C = UniqueKeys0.CONSTRAINT_6C;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<BookinformationrequestRecord, BookRecord> CONSTRAINT_B = ForeignKeys0.CONSTRAINT_B;
+    public static final ForeignKey<InformationRecord, RequestRecord> CONSTRAINT_F = ForeignKeys0.CONSTRAINT_F;
+    public static final ForeignKey<RequestRecord, BookRecord> CONSTRAINT_6 = ForeignKeys0.CONSTRAINT_6;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -56,14 +62,18 @@ public class Keys {
 
     private static class Identities0 {
         public static Identity<BookRecord, Integer> IDENTITY_BOOK = Internal.createIdentity(Book.BOOK, Book.BOOK.BOOKID);
-        public static Identity<BookinformationrequestRecord, Integer> IDENTITY_BOOKINFORMATIONREQUEST = Internal.createIdentity(Bookinformationrequest.BOOKINFORMATIONREQUEST, Bookinformationrequest.BOOKINFORMATIONREQUEST.BOOKREQUESTID);
+        public static Identity<InformationRecord, Integer> IDENTITY_INFORMATION = Internal.createIdentity(Information.INFORMATION, Information.INFORMATION.INFORMATIONID);
+        public static Identity<RequestRecord, Integer> IDENTITY_REQUEST = Internal.createIdentity(Request.REQUEST, Request.REQUEST.REQUESTID);
     }
 
     private static class UniqueKeys0 {
         public static final UniqueKey<BookRecord> CONSTRAINT_1 = Internal.createUniqueKey(Book.BOOK, "CONSTRAINT_1", Book.BOOK.BOOKID);
+        public static final UniqueKey<InformationRecord> CONSTRAINT_F5 = Internal.createUniqueKey(Information.INFORMATION, "CONSTRAINT_F5", Information.INFORMATION.INFORMATIONID);
+        public static final UniqueKey<RequestRecord> CONSTRAINT_6C = Internal.createUniqueKey(Request.REQUEST, "CONSTRAINT_6C", Request.REQUEST.REQUESTID);
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<BookinformationrequestRecord, BookRecord> CONSTRAINT_B = Internal.createForeignKey(com.mashuq.athenaeum.domain.athenaeum.Keys.CONSTRAINT_1, Bookinformationrequest.BOOKINFORMATIONREQUEST, "CONSTRAINT_B", Bookinformationrequest.BOOKINFORMATIONREQUEST.BOOKID);
+        public static final ForeignKey<InformationRecord, RequestRecord> CONSTRAINT_F = Internal.createForeignKey(com.mashuq.athenaeum.domain.athenaeum.Keys.CONSTRAINT_6C, Information.INFORMATION, "CONSTRAINT_F", Information.INFORMATION.REQUESTID);
+        public static final ForeignKey<RequestRecord, BookRecord> CONSTRAINT_6 = Internal.createForeignKey(com.mashuq.athenaeum.domain.athenaeum.Keys.CONSTRAINT_1, Request.REQUEST, "CONSTRAINT_6", Request.REQUEST.BOOKID);
     }
 }

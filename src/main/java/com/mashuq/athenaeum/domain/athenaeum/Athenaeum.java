@@ -6,7 +6,8 @@ package com.mashuq.athenaeum.domain.athenaeum;
 
 import com.mashuq.athenaeum.domain.DefaultCatalog;
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
-import com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Information;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Request;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Athenaeum extends SchemaImpl {
 
-    private static final long serialVersionUID = 751764524;
+    private static final long serialVersionUID = 16822111;
 
     /**
      * The reference instance of <code>ATHENAEUM</code>
@@ -45,9 +46,14 @@ public class Athenaeum extends SchemaImpl {
     public final Book BOOK = com.mashuq.athenaeum.domain.athenaeum.tables.Book.BOOK;
 
     /**
-     * The table <code>ATHENAEUM.BOOKINFORMATIONREQUEST</code>.
+     * The table <code>ATHENAEUM.INFORMATION</code>.
      */
-    public final Bookinformationrequest BOOKINFORMATIONREQUEST = com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest.BOOKINFORMATIONREQUEST;
+    public final Information INFORMATION = com.mashuq.athenaeum.domain.athenaeum.tables.Information.INFORMATION;
+
+    /**
+     * The table <code>ATHENAEUM.REQUEST</code>.
+     */
+    public final Request REQUEST = com.mashuq.athenaeum.domain.athenaeum.tables.Request.REQUEST;
 
     /**
      * No further instances allowed
@@ -75,6 +81,7 @@ public class Athenaeum extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Book.BOOK,
-            Bookinformationrequest.BOOKINFORMATIONREQUEST);
+            Information.INFORMATION,
+            Request.REQUEST);
     }
 }

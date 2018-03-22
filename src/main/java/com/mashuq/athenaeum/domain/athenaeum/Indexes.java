@@ -5,7 +5,8 @@ package com.mashuq.athenaeum.domain.athenaeum;
 
 
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
-import com.mashuq.athenaeum.domain.athenaeum.tables.Bookinformationrequest;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Information;
+import com.mashuq.athenaeum.domain.athenaeum.tables.Request;
 
 import javax.annotation.Generated;
 
@@ -32,7 +33,10 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index PRIMARY_KEY_1 = Indexes0.PRIMARY_KEY_1;
-    public static final Index CONSTRAINT_INDEX_B = Indexes0.CONSTRAINT_INDEX_B;
+    public static final Index CONSTRAINT_INDEX_F = Indexes0.CONSTRAINT_INDEX_F;
+    public static final Index PRIMARY_KEY_F = Indexes0.PRIMARY_KEY_F;
+    public static final Index CONSTRAINT_INDEX_6 = Indexes0.CONSTRAINT_INDEX_6;
+    public static final Index PRIMARY_KEY_6 = Indexes0.PRIMARY_KEY_6;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -40,6 +44,9 @@ public class Indexes {
 
     private static class Indexes0 {
         public static Index PRIMARY_KEY_1 = Internal.createIndex("PRIMARY_KEY_1", Book.BOOK, new OrderField[] { Book.BOOK.BOOKID }, true);
-        public static Index CONSTRAINT_INDEX_B = Internal.createIndex("CONSTRAINT_INDEX_B", Bookinformationrequest.BOOKINFORMATIONREQUEST, new OrderField[] { Bookinformationrequest.BOOKINFORMATIONREQUEST.BOOKID }, false);
+        public static Index CONSTRAINT_INDEX_F = Internal.createIndex("CONSTRAINT_INDEX_F", Information.INFORMATION, new OrderField[] { Information.INFORMATION.REQUESTID }, false);
+        public static Index PRIMARY_KEY_F = Internal.createIndex("PRIMARY_KEY_F", Information.INFORMATION, new OrderField[] { Information.INFORMATION.INFORMATIONID }, true);
+        public static Index CONSTRAINT_INDEX_6 = Internal.createIndex("CONSTRAINT_INDEX_6", Request.REQUEST, new OrderField[] { Request.REQUEST.BOOKID }, false);
+        public static Index PRIMARY_KEY_6 = Internal.createIndex("PRIMARY_KEY_6", Request.REQUEST, new OrderField[] { Request.REQUEST.REQUESTID }, true);
     }
 }

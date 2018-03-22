@@ -7,8 +7,11 @@ import java.nio.file.Paths;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,5 +48,17 @@ public class LuceneConfiguration {
 	public IndexWriter getIndexWriter() throws IOException, URISyntaxException {
 		return new IndexWriter(getIndex(), getWriterConfiguration());
 	}
+	
+	@Bean
+	public IndexReader getIndexReader() throws IOException, URISyntaxException {
+		return DirectoryReader.open(getIndex());
+	}
+	
+	@Bean
+	public IndexSearcher getIndexSearcher()
+			throws IOException, URISyntaxException {
+		return new IndexSearcher(getIndexReader());
+	}
+	
 	
 }
