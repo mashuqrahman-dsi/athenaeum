@@ -1,9 +1,6 @@
 package com.mashuq.athenaeum.util;
 
-import java.util.Collection;
-
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoIterable;
 
 public class MongoUtil {
 

@@ -8,7 +8,7 @@ import com.mashuq.athenaeum.reference.AbstractRESTReference;
 
 @Component
 public class GoogleBooks extends AbstractRESTReference {
-	
+
 	@Value("${google.books.resturl}")
 	String restURL;
 

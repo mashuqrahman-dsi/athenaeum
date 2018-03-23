@@ -2,10 +2,10 @@ package com.mashuq.athenaeum.constant;
 
 public enum Status {
 	DUMMY;
-	public enum Information{
+	public enum Information {
 		PROCESSING, SUCCESS, FAILURE, ERROR
 	};
-	public enum Request{
+	public enum Request {
 		REQUESTED, PROCESSING, COMPLETED
 	}
 }

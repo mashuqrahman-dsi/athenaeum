@@ -8,9 +8,10 @@ import org.apache.lucene.queryparser.classic.ParseException;
 
 public interface BookService {
 
-	List<Map> searchBooksByTitle(String title) throws ParseException, IOException;
-	
+	List<Map> searchBooksByTitle(String title)
+			throws ParseException, IOException;
+
 	List<Map> searchBooksByISBN(String isbn) throws ParseException, IOException;
-	
+
 	Map getBookInformation(Integer bookID);
 }

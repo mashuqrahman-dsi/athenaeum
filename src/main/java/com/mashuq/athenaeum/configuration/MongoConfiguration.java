@@ -27,5 +27,5 @@ public class MongoConfiguration {
 	@Bean
 	public MongoDatabase getMongoDB() {
 		return getMongoClient().getDatabase(mongodbName);
-	}	
+	}
 }

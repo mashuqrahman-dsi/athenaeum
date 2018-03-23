@@ -35,8 +35,8 @@ public class Indexer {
 	@Scheduled(fixedDelay = 1, initialDelay = 6000)
 	public void indexBookTitles() throws IOException {
 		LOGGER.info("Indexing books ...");
-		Result<BookRecord> unindexedBooks = dsl.selectFrom(Book.BOOK).where(Book.BOOK.INDEXED.eq((byte) 0)).limit(1000)
-				.fetch();
+		Result<BookRecord> unindexedBooks = dsl.selectFrom(Book.BOOK)
+				.where(Book.BOOK.INDEXED.eq((byte) 0)).limit(1000).fetch();
 		if (unindexedBooks.size() <= 0) {
 			LOGGER.info("Nothing to index");
 			return;
@@ -56,19 +56,25 @@ public class Indexer {
 		LOGGER.info("Indexed " + unindexedBooks.size() + " books");
 	}
 
-	public void indexBookRecord(BookRecord bookRecord, IndexWriter indexWriter) throws IOException {
+	public void indexBookRecord(BookRecord bookRecord, IndexWriter indexWriter)
+			throws IOException {
 		if (null == bookRecord)
 			return;
 		Document document = new Document();
 		if (null != bookRecord.getTitle())
-			document.add(new TextField(BookFields.TITLE.name(), bookRecord.getTitle(), Field.Store.YES));
+			document.add(new TextField(BookFields.TITLE.name(),
+					bookRecord.getTitle(), Field.Store.YES));
 		if (null != bookRecord.getSubtitle())
-			document.add(new TextField(BookFields.SUBTITLE.name(), bookRecord.getSubtitle(), Field.Store.YES));
+			document.add(new TextField(BookFields.SUBTITLE.name(),
+					bookRecord.getSubtitle(), Field.Store.YES));
 		if (null != bookRecord.getIsbn10())
-			document.add(new StringField(BookFields.ISBN10.name(), bookRecord.getIsbn10(), Field.Store.YES));
+			document.add(new StringField(BookFields.ISBN10.name(),
+					bookRecord.getIsbn10(), Field.Store.YES));
 		if (null != bookRecord.getIsbn13())
-			document.add(new StringField(BookFields.ISBN13.name(), bookRecord.getIsbn13(), Field.Store.YES));
-		document.add(new StoredField(BookFields.BOOKID.name(), bookRecord.getBookid()));
+			document.add(new StringField(BookFields.ISBN13.name(),
+					bookRecord.getIsbn13(), Field.Store.YES));
+		document.add(new StoredField(BookFields.BOOKID.name(),
+				bookRecord.getBookid()));
 		indexWriter.addDocument(document);
 	}
 

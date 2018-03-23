@@ -66,7 +66,7 @@ public class Processor {
 				processAlreadyProcessedOrProcessing(record);
 			}
 		}
-		LOGGER.info("Processed "+ requested.size() + " requests");
+		LOGGER.info("Processed " + requested.size() + " requests");
 	}
 
 	@Scheduled(fixedDelay = 10000, initialDelay = 1000)
@@ -187,8 +187,7 @@ public class Processor {
 		if (allProcessed) {
 			dsl.update(REQUEST)
 					.set(REQUEST.STATUS, Status.Request.COMPLETED.name())
-					.where(REQUEST.REQUESTID
-							.eq(record.get(REQUEST.REQUESTID)))
+					.where(REQUEST.REQUESTID.eq(record.get(REQUEST.REQUESTID)))
 					.execute();
 		}
 	}

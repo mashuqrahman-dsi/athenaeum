@@ -18,7 +18,8 @@ public class LuceneUtil {
 				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 	}
 
-	public static List<Document> createDocuments(TopDocs topDocs, IndexSearcher searcher) throws IOException {
+	public static List<Document> createDocuments(TopDocs topDocs,
+			IndexSearcher searcher) throws IOException {
 		List<Document> documents = new ArrayList<>();
 		for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
 			documents.add(searcher.doc(scoreDoc.doc));

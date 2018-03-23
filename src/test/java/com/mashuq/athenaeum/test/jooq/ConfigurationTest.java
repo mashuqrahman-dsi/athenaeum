@@ -10,18 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ImportAutoConfiguration(JooqAutoConfiguration.class)
+@SpringBootTest(properties = "scheduling.enabled=false")
+@ContextConfiguration
 public class ConfigurationTest {
 
 	@Autowired
 	private DSLContext dSLContext;
 
 	@Test
-	public void dialectShouldBePickedUp() {
-		assertEquals(dSLContext.configuration().dialect(), SQLDialect.POSTGRES);
+	public void dialectTest() {
+		assertEquals(dSLContext.configuration().dialect(),
+				SQLDialect.MYSQL_5_7);
 	}
 }

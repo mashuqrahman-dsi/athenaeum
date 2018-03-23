@@ -4,39 +4,33 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.StoredField;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.IndexWriter;
 import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
-import com.mashuq.athenaeum.constant.BookFields;
 import com.mashuq.athenaeum.domain.athenaeum.tables.Book;
 import com.mashuq.athenaeum.domain.athenaeum.tables.records.BookRecord;
-import com.mashuq.athenaeum.reference.Reference;
-import com.mashuq.athenaeum.util.LuceneUtil;
 
 @Component
 public class ApplicationEventListener {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationEventListener.class);
+	private static final String ISBN_13 = "isbn_13";
+	private static final String ISBN_10 = "isbn_10";
+	private static final String TITLE = "title";
+
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(ApplicationEventListener.class);
 
 	@Autowired
 	private DSLContext dsl;
@@ -50,7 +44,8 @@ public class ApplicationEventListener {
 	}
 
 	private void initializeAllBooks() {
-		int totalBooks = dsl.selectCount().from(Book.BOOK).fetchOne(0, int.class);
+		int totalBooks = dsl.selectCount().from(Book.BOOK).fetchOne(0,
+				int.class);
 
 		if (totalBooks > 0)
 			return; // already initialized.
@@ -97,17 +92,24 @@ public class ApplicationEventListener {
 	private BookRecord createBookRecord(String json) {
 		Gson gson = new Gson();
 		Map<String, Object> map = new HashMap<String, Object>();
-		map = (Map<String, Object>) gson.fromJson(json, map.getClass());
+		map = gson.fromJson(json, map.getClass());
 
-		if (null == map.get("title") || (null == map.get("isbn_10") && null == map.get("isbn_13")))
+		if (null == map.get(TITLE)
+				|| (null == map.get(ISBN_10) && null == map.get(ISBN_13)))
 			return null;
 
 		BookRecord bookRecord = dsl.newRecord(Book.BOOK);
-		bookRecord.setTitle((String) map.get("title"));
+		bookRecord.setTitle((String) map.get(TITLE));
 		bookRecord.setSubtitle((String) map.get("subtitle"));
-		bookRecord.setIsbn10(null != map.get("isbn_10") && !((List) map.get("isbn_10")).isEmpty() ? (String) ((List) map.get("isbn_10")).get(0) : null);
-		bookRecord.setIsbn13(null != map.get("isbn_13") && !((List) map.get("isbn_13")).isEmpty() ? (String) ((List) map.get("isbn_13")).get(0) : null);
-		bookRecord.setIndexed((byte)0);
+		bookRecord.setIsbn10(null != map.get(ISBN_10)
+				&& !((List) map.get(ISBN_10)).isEmpty()
+						? (String) ((List) map.get(ISBN_10)).get(0)
+						: null);
+		bookRecord.setIsbn13(null != map.get(ISBN_13)
+				&& !((List) map.get(ISBN_13)).isEmpty()
+						? (String) ((List) map.get(ISBN_13)).get(0)
+						: null);
+		bookRecord.setIndexed((byte) 0);
 		return bookRecord;
 	}
 

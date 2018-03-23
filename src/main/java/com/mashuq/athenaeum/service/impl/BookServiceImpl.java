@@ -129,7 +129,8 @@ public class BookServiceImpl implements BookService {
 				MongoCollection<org.bson.Document> collection = mongoDatabase
 						.getCollection(record.get(INFORMATION.REFERENCE));
 				org.bson.Document doc = collection
-						.find(Filters.eq("_id", new ObjectId(record.get(INFORMATION.DATA))))
+						.find(Filters.eq("_id",
+								new ObjectId(record.get(INFORMATION.DATA))))
 						.first();
 				result.put(record.get(INFORMATION.REFERENCE), doc.toJson());
 			}

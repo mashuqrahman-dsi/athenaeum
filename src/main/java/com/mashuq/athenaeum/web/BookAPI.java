@@ -15,28 +15,37 @@ import com.mashuq.athenaeum.exception.AtheneumException;
 import com.mashuq.athenaeum.service.BookService;
 
 @RestController
+@RequestMapping("/api")
 public class BookAPI {
 
 	@Autowired
 	private BookService bookService;
 
-	@RequestMapping(value = "/search/title/{searchTitle}", method = RequestMethod.GET)
+	@RequestMapping(value = "/booksearch/title/{searchTitle}", method = RequestMethod.GET)
 	ResponseEntity<List<Map>> searchByTitle(
 			@PathVariable("searchTitle") String searchTitle) {
 		try {
 			List<Map> result = bookService.searchBooksByTitle(searchTitle);
-			return new ResponseEntity(result, HttpStatus.FOUND);
+			if (null != result && !result.isEmpty())
+				return new ResponseEntity(result, HttpStatus.FOUND);
+			else
+				return new ResponseEntity(HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 		}
 	}
 
-	@RequestMapping(value = "/search/isbn/{isbn}", method = RequestMethod.GET)
+	@RequestMapping(value = "/booksearch/isbn/{isbn}", method = RequestMethod.GET)
 	ResponseEntity<List<Map>> searchByISBN(@PathVariable("isbn") String isbn) {
 		try {
 			List<Map> result = bookService.searchBooksByISBN(isbn);
-			return new ResponseEntity(result, HttpStatus.FOUND);
+			if (null != result && !result.isEmpty())
+				return new ResponseEntity(result, HttpStatus.FOUND);
+			else
+				return new ResponseEntity(HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 		}
 	}

@@ -34,31 +34,32 @@ public class LuceneConfiguration {
 	public Analyzer getAnalyzer() {
 		return new StandardAnalyzer();
 	}
-	
+
 	@Bean
 	@Scope("prototype")
 	public IndexWriterConfig getWriterConfiguration() {
-		IndexWriterConfig indexWriterConfig = new IndexWriterConfig(getAnalyzer());
-		indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+		IndexWriterConfig indexWriterConfig = new IndexWriterConfig(
+				getAnalyzer());
+		indexWriterConfig
+				.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 		return indexWriterConfig;
 	}
-	
+
 	@Bean
 	@Scope("prototype")
 	public IndexWriter getIndexWriter() throws IOException, URISyntaxException {
 		return new IndexWriter(getIndex(), getWriterConfiguration());
 	}
-	
+
 	@Bean
 	public IndexReader getIndexReader() throws IOException, URISyntaxException {
 		return DirectoryReader.open(getIndex());
 	}
-	
+
 	@Bean
 	public IndexSearcher getIndexSearcher()
 			throws IOException, URISyntaxException {
 		return new IndexSearcher(getIndexReader());
 	}
-	
-	
+
 }
